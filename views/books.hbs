@@ -1,0 +1,20 @@
+<h2>Thêm sách mới</h2>
+<p>Mã sách phải bắt đầu bằng <strong>{{prefix}}</strong>. Giá nhập theo VND, chưa gồm thuế.</p>
+{{#if message}}<p role="alert"><strong>{{message}}</strong></p>{{/if}}
+<form method="post" action="/books">
+  <input type="hidden" name="_csrf" value="{{csrf}}">
+  <p><label>Mã sách <input name="code" maxlength="50" required placeholder="{{prefix}}-001"></label></p>
+  <p><label>Tên sách <input name="title" maxlength="200" required></label></p>
+  <p><label>Giá trước thuế <input name="basePrice" type="number" min="0" max="1000000000" step="1" required></label></p>
+  <button type="submit">Lưu sách</button>
+</form>
+<h2>Danh sách sách (100 bản ghi mới nhất)</h2>
+<table>
+  <thead><tr><th>Mã</th><th>Tên sách</th><th>Giá trước thuế</th><th>VAT</th><th>Tiền thuế</th><th>Giá sau thuế</th></tr></thead>
+  <tbody>
+    {{#each books}}
+    <tr><td>{{code}}</td><td>{{title}}</td><td>{{money basePrice}} ₫</td><td>{{vatPercent}}%</td><td>{{money vatAmount}} ₫</td><td>{{money finalPrice}} ₫</td></tr>
+    {{else}}<tr><td colspan="6">Chưa có sách.</td></tr>{{/each}}
+  </tbody>
+</table>
+<details><summary>Minh chứng session tập trung</summary><p>Phiên bắt đầu: {{startedAt}}</p><p>Instance hiện tại: {{instanceId}}</p><p>Sau khi đổi instance hoặc khởi động lại, thời điểm bắt đầu phiên vẫn giữ nguyên nếu cookie và session còn hạn.</p></details>
