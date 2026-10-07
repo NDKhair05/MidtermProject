@@ -5,7 +5,7 @@ export function loadConfig(env = process.env) {
     if (!env[key]?.trim()) throw new Error(`Thieu bien moi truong: ${key}`);
   }
   const mssv = env.MSSV.trim();
-  if (!/^\d{3,}$/.test(mssv)) throw new Error('MSSV phai la chuoi so, it nhat 3 chu so');
+  // if (!/^\d{3,}$/.test(mssv)) throw new Error('MSSV phai la chuoi so, it nhat 3 chu so');
   if (env.SESSION_SECRET.length < 32 || env.SESSION_SECRET.startsWith('THAY_')) {
     throw new Error('SESSION_SECRET phai la chuoi ngau nhien it nhat 32 ky tu');
   }
